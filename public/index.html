@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Data Console · Salesforce CRUD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◈</span>
+      <span class="brand-name">Data Console</span>
+    </div>
+    <div id="authArea" class="auth-area">
+      <button id="loginBtn" class="btn btn-primary">Log in with Salesforce</button>
+    </div>
+  </header>
+
+  <main id="app" class="app hidden">
+    <section class="control-bar">
+      <label class="control-label" for="objectSelect">Object</label>
+      <select id="objectSelect" class="select"></select>
+      <button id="newRecordBtn" class="btn btn-accent">+ New Record</button>
+      <span id="recordCount" class="record-count"></span>
+    </section>
+
+    <section class="table-wrap">
+      <table id="recordTable" class="record-table">
+        <thead><tr id="tableHead"></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div id="loadingRow" class="loading-row hidden">Loading records…</div>
+      <div id="emptyState" class="empty-state hidden">
+        <p>No records yet.</p>
+        <button id="emptyNewBtn" class="btn btn-accent">Create the first one</button>
+      </div>
+    </section>
+  </main>
+
+  <section id="loggedOutState" class="logged-out">
+    <h1>Salesforce Data Console</h1>
+    <p>View, create, edit and delete Account, Opportunity, Lead, Contact and Case records &mdash;
+       without opening the Salesforce UI. Authenticated via OAuth&nbsp;2.0.</p>
+  </section>
+
+  <!-- Record modal (create / edit) -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Record</h2>
+        <button id="modalClose" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <form id="recordForm" class="record-form"></form>
+      <div class="modal-footer">
+        <button id="cancelBtn" class="btn btn-ghost" type="button">Cancel</button>
+        <button id="saveBtn" class="btn btn-primary" type="submit" form="recordForm">Save</button>
+      </div>
+      <p id="formError" class="form-error hidden"></p>
+    </div>
+  </div>
+
+  <!-- Delete confirmation -->
+  <div id="deleteOverlay" class="modal-overlay hidden">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2>Delete record?</h2>
+      </div>
+      <p id="deleteMessage" class="delete-message"></p>
+      <div class="modal-footer">
+        <button id="deleteCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
+        <button id="deleteConfirmBtn" class="btn btn-danger" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
